@@ -1,0 +1,3 @@
+/home/developer/Proyectos/curses/WebinarConan/Examples/linux/consumer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/developer/Proyectos/curses/WebinarConan/Examples/linux/consumer/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/developer/Proyectos/curses/WebinarConan/Examples/linux/consumer/cmake-build-debug/CMakeFiles/consumer.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++     -g        CMakeFiles/consumer.dir/consumer.cpp.o  -o bin/consumer   -L/home/developer/.conan/data/hello_conan/0.1/oscar/testing/package/abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082/lib  -Wl,-rpath,/home/developer/.conan/data/hello_conan/0.1/oscar/testing/package/abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082/lib -lhello_conan 

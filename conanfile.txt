@@ -1,0 +1,5 @@
+[requires]
+hello_conan/0.1@oscar/testing
+
+[generators]
+cmake

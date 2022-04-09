@@ -1,0 +1,117 @@
+
+-1
+conanfile.txt
+#Lo edito añadiendo la dependencia (bajo [requires]) hello_conan/0.1@oscar/testing
+
+0
+mkdir cmake-build-debug
+cd cmake-build-debug
+
+1
+#instalo mi paquete. Entre otras cosas se descarga las dependencias a tu cache local si es que no las tiene
+# conan install .. --build=missing             <<< *** si el siguiente da error ***!!!!
+conan install ..
+# Ok te genera
+# -- Build files have been written to: /home/developer/.conan/data/hello_conan/0.1/oscar/testing/build/abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+# Scanning dependencies of target hello_conan
+# [ 25%] Building CXX object CMakeFiles/hello_conan.dir/hello_conan.cpp.o
+# [ 50%] Linking CXX static library lib/libhello_conan.a
+# [ 50%] Built target hello_conan
+# Scanning dependencies of target greet
+# [ 75%] Building CXX object CMakeFiles/greet.dir/main.cpp.o
+# [100%] Linking CXX executable hello_conan/bin/greet
+# [100%] Built target greet
+# hello_conan/0.1@oscar/testing: Package 'abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082' built
+# hello_conan/0.1@oscar/testing: Build folder /home/developer/.conan/data/hello_conan/0.1/oscar/testing/build/abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+# hello_conan/0.1@oscar/testing: Generated conaninfo.txt
+# hello_conan/0.1@oscar/testing: Generated conanbuildinfo.txt
+# hello_conan/0.1@oscar/testing: Generating the package
+# hello_conan/0.1@oscar/testing: Package folder /home/developer/.conan/data/hello_conan/0.1/oscar/testing/package/abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+# hello_conan/0.1@oscar/testing: Calling package()
+# hello_conan/0.1@oscar/testing package(): Packaged 1 '.h' file: hello_conan.h
+# hello_conan/0.1@oscar/testing package(): Packaged 1 '.a' file: libhello_conan.a
+# hello_conan/0.1@oscar/testing: Package 'abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082' created
+# hello_conan/0.1@oscar/testing: Created package revision 4fa5ded682c2fbc4ea68ae9e508955fc
+# conanfile.txt: Generator cmake created conanbuildinfo.cmake
+# conanfile.txt: Generator txt created conanbuildinfo.txt
+# conanfile.txt: Aggregating env generators
+# conanfile.txt: Generated conaninfo.txt
+# conanfile.txt: Generated graphinfo
+
+# Resumiendo en el directorio conan ha generado 2 subdirectorios
+# 	N:\hello_conan\0.1\oscar\testing\build\abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+# 	donde construye todo desde los fuentes
+# 	N:\hello_conan\0.1\oscar\testing\package\abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+# 	con subdir include con .h y lib con el .a (includes y binarios que necesitara el consumer)
+
+
+
+
+# si generaba adding -t (test) me fallaba fallaba y el tuto proponia añadir --build=missing
+#conan install .. --build=missing pero a mi me fallaba tambien
+
+
+
+conan search hello_conan/0.1@oscar/testing
+#Output OK
+#ME informa el package generado y a que settings se corresponde
+# Existing packages for recipe hello_conan/0.1@oscar/testing:
+
+    # Package_ID: abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+        # [settings]
+            # arch: x86_64
+            # build_type: Release
+            # compiler: gcc
+            # compiler.libcxx: libstdc++11
+            # compiler.version: 9
+            # os: Linux
+        # Outdated from recipe: False
+
+
+
+#Output Error
+# Existing packages for recipe hello_conan/0.1@oscar/testing:
+# There are no packages for reference 'hello_conan/0.1@oscar/testing', but package recipe found.
+
+
+
+
+2
+conan info .. >> output_conan_info.txt
+#Outputconanfile.txt
+    # ID: 617341155be28bca8d119c7e563087f8bd6334a9
+    # BuildID: None
+    # Context: host
+    # Requires:
+        # hello_conan/0.1@oscar/testing
+# hello_conan/0.1@oscar/testing
+    # ID: abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082
+    # BuildID: None
+    # Context: host
+    # Remote: None
+    # Provides: hello_conan
+    # Recipe: Cache
+    # Binary: Cache
+    # Binary remote: None
+    # Creation date: 2022-04-09 16:13:10 UTC
+    # Required by:
+        # conanfile.txt
+
+
+3 
+#Solo resta configurar nuestra consumer app
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DC_C_COMPILER=/usr/bin/gcc -DC_CXX_COMPILER=/usr/bin/g++  
+# -- Configuring done
+# CMake Error at CMakeLists.txt:13 (ADD_LIBRARY):
+  # Cannot find source file:
+    # hello_conan.cpp
+
+
+
+cmake --build . --config Release
+# <=>
+#make
+
+bin/consumer
+# Output
+# MD5= b10a8db164e0754105b7a99be72e3fe5
